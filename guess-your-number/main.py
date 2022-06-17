@@ -3,22 +3,22 @@ import random
 
 global choose_number
 choose_number=random.randint(1,100)
-
+EASY_LEVEL_TURNS = 10
+HARD_LEVEL_TURNS = 5
 def dificulty():
-    mode=input("Do you prefer mode 'easy'(5 attempt) or 'hard'(10 attempt)")
+    mode=input("Do you prefer mode 'easy'(10 attempt) or 'hard'(5 attempt) ")
     if mode=='easy':
-        mode=10
+        return EASY_LEVEL_TURNS
     else:
-        mode=5
-    return mode
+        return HARD_LEVEL_TURNS
 
 def main():
     print(art.logo)
     print("Welcome to the Number Guessing Game!")
     print("I'm thinking of a number between 1 and 100.")
-    mode=dificulty()
-    while mode > 0:
-        person_number=input("What is the number? ")
+    attempt=dificulty()
+    while attempt > 0:
+        person_number=int(input("What is the number? "))
         if person_number > choose_number:
             print(f"The number {person_number} is too high")
         elif person_number < choose_number:
@@ -26,5 +26,8 @@ def main():
         else:
             print(f"The number {person_number} is the answer")
             break
-        mode-=1
-
+        print(f"You have {attempt} attempt")
+        attempt-=1
+    if attempt==0:
+        print(f"You lose 😭. The answer is {attempt}")
+main()
